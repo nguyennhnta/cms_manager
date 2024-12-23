@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use App\Models\User;
 
 class PostController extends Controller implements  HasMiddleware
 {
@@ -13,7 +14,7 @@ class PostController extends Controller implements  HasMiddleware
     {
         return [
 //            'role_or_permission:manager|edit articles', //Kiểm tra nếu người dùng có vai trò hoặc quyền cụ thể.
-            new Middleware('role:Admin', only: ['index']), //Kiểm tra vai trò Admin
+//            new Middleware('role:Viewer', only: ['index']), //Kiểm tra vai trò Admin
 //            new Middleware(\Spatie\Permission\Middleware\RoleMiddleware::using('manager'), except:['show']), // Sử dụng middleware role với vai trò manager.
 //            new Middleware(\Spatie\Permission\Middleware\PermissionMiddleware::using('delete records,api'), only:['destroy']), //Kiểm tra quyền delete records và api.
         ];
@@ -21,7 +22,9 @@ class PostController extends Controller implements  HasMiddleware
 
     public function index()
     {
-        return Post::all();
+        $allUsersWithAllTheirRoles = User::with('roles')->get();
+        return response()->json($allUsersWithAllTheirRoles, 201);
+//        return Post::all();
     }
 
     public function store(Request $request)
