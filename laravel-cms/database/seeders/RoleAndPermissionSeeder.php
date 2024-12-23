@@ -35,9 +35,9 @@ class RoleAndPermissionSeeder extends Seeder
         }
 
         // Tạo vai trò và gán quyền
-        $adminRole = Role::create(['name' => 'Admin']);
-        $editorRole = Role::create(['name' => 'Editor']);
-        $viewerRole = Role::create(['name' => 'Viewer']);
+        $adminRole = Role::create(['name' => 'admin']);
+        $editorRole = Role::create(['name' => 'editor']);
+        $viewerRole = Role::create(['name' => 'viewer']);
 
         $adminRole->givePermissionTo(Permission::all());
         $editorRole->givePermissionTo(['create-post', 'edit-post', 'view-post']);
