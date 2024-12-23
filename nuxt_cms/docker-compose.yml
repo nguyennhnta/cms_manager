@@ -1,0 +1,20 @@
+services:
+  nuxt_cms_app:
+      build:
+          context: ./
+          dockerfile: Dockerfile
+          target: development   # Sử dụng stage 'development' cho dev
+      container_name: nuxt_cms_app
+      ports:
+        - "8081:8081"  # bên trái là cổng host ở máy chủ (local) , bên phải là cổng container, khi truy cập http://localhost:8081 ở máy local , docker sẽ chuyển từ cổng 8081 ở lcoal sang 8081 ở docker
+      volumes:
+          - ../nuxt_cms:/app   # Gắn thư mục để hỗ trợ hot-reload, thay đổi code dưới local thì sẽ được đồng bộ vào container, ngược lại không được
+          - /app/node_modules  #thêm dòng naỳ để docker không ghi đè node_modules local trong vào  docker container
+      environment:
+          VUE_APP_API_URL: http://localhost:8081/api
+      networks:
+          - laravel_cms
+
+networks:
+  laravel_cms:
+    driver: bridge
