@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'passport', // Sử dụng passport guard
+            'provider' => 'users', // Tham chiếu đến bảng người dùng của bạn
+        ],
     ],
 
     /*
