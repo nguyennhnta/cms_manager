@@ -22,9 +22,11 @@ class PostController extends Controller implements  HasMiddleware
 
     public function index()
     {
-        $allUsersWithAllTheirRoles = User::with('roles')->get();
-        return response()->json($allUsersWithAllTheirRoles, 201);
+//        $allUsersWithAllTheirRoles = User::with('roles')->get();
+//        return response()->json($allUsersWithAllTheirRoles, 201);
 //        return Post::all();
+        $user = User::find(1);
+        $user->assignRole('Admin');
     }
 
     public function store(Request $request)
