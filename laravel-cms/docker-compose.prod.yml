@@ -1,0 +1,72 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: ai_chat
+    container_name: ai_chat-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - ai_chat
+
+  db:
+    image: mysql:8.0
+    container_name: ai_chat-db
+    restart: unless-stopped
+    ports:
+      - ${MYSQL_PORT_EXTRA:-3306}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_MYSQL_USER}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max_connections=2213 --group_concat_max_len=1000000
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - ai_chat
+
+  nginx:
+    image: nginx:alpine
+    container_name: ai_chat-nginx
+    restart: unless-stopped
+    ports:
+      - ${NGINX_PORT_EXTRA:-8080}:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - ai_chat
+  #    vue-app:
+  #        build:
+  #            context: ../vue-project
+  #            dockerfile: Dockerfile
+  #        container_name: vue-app
+  #        ports:
+  #            - "8081:80"
+  #        networks:
+  #            - ai_chat
+  #        environment:
+  #            VUE_APP_API_URL: http://localhost:8080/api
+  vue-app:
+    build:
+      context: ../vue-project
+      dockerfile: Dockerfile
+      target: production
+    container_name: vue-app-prod
+    ports:
+      - "8081:8081"
+    environment:
+      VUE_APP_API_URL: http://localhost:8080/api
+    networks:
+      - ai_chat
+
+networks:
+  ai_chat:
+    driver: bridge
