@@ -11,9 +11,9 @@ Route::get('/user', function (Request $request) {
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
-Route::group(['middleware' => 'auth:api'], function() {
+Route::group(['middleware' => ['auth:api']], function() {
     Route::post('user', [AuthController::class, 'user']);
-    Route::get('posts', [PostController::class, 'index']);
+    Route::resource('posts', PostController::class);
 });
 
 Route::middleware('auth:api')->get('/auth/check-token', function () {

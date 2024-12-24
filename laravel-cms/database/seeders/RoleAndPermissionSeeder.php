@@ -15,13 +15,10 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Vô hiệu hóa ràng buộc khóa ngoại
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        // Xóa dữ liệu cũ
         Role::truncate();
         Permission::truncate();
 
-        // Tạo quyền
         $permissions = [
             'create-post',
             'edit-post',
@@ -34,7 +31,6 @@ class RoleAndPermissionSeeder extends Seeder
             Permission::create(['name' => $permission]);
         }
 
-        // Tạo vai trò và gán quyền
         $adminRole = Role::create(['name' => 'admin']);
 //        Role::create(['name' => 'admin', 'guard_name' => 'api']); // Chỉ định guard cho vai trò 'admin' là 'api'
         $editorRole = Role::create(['name' => 'editor']);
