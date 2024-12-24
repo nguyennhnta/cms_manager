@@ -10,6 +10,9 @@ use App\Models\User;
 
 class PostController extends Controller implements  HasMiddleware
 {
+    /**
+     * @return Middleware[]
+     */
     public static function middleware(): array
     {
         return [
@@ -35,7 +38,7 @@ class PostController extends Controller implements  HasMiddleware
     public function show(Post $post) {
         if (!auth()->user()->hasAnyRole(['editor', 'admin'])) {
             return response()->json([
-                'message' => 'Bạn không có quyền truy cập bài viết này.',
+                'message' => 'You do not have the required authorization.',
                 'status' => 403
             ], 403);
         }
