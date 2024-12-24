@@ -26,7 +26,7 @@ class PostController extends Controller implements  HasMiddleware
 //        return response()->json($allUsersWithAllTheirRoles, 201);
 //        return Post::all();
         $user = User::find(1);
-        $user->assignRole('Admin');
+        $user->assignRole('admin');
     }
 
     public function store(Request $request)

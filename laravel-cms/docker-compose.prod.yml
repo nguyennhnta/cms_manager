@@ -43,17 +43,6 @@ services:
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
       - ai_chat
-  #    vue-app:
-  #        build:
-  #            context: ../vue-project
-  #            dockerfile: Dockerfile
-  #        container_name: vue-app
-  #        ports:
-  #            - "8081:80"
-  #        networks:
-  #            - ai_chat
-  #        environment:
-  #            VUE_APP_API_URL: http://localhost:8080/api
   vue-app:
     build:
       context: ../vue-project
