@@ -3,13 +3,13 @@
 import { useAuthStore } from '~/stores/auth';
 
 export default defineNuxtRouteMiddleware(async (to) => {
-  const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
-  const token = useCookie('token'); // get token from cookies
+  // const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
+  // const token = useCookie('token'); // get token from cookies
 
-  if (token.value) {
+  // if (token.value) {
     // check if value exists
     // todo verify if token is valid, before updating the state
-    authenticated.value = true; // Token hợp lệ
+    // authenticated.value = true; // Token hợp lệ
     // try {
       // const response = await fetch('http://localhost:8080/api/auth/check-token', {
       //     method: 'GET',
@@ -36,7 +36,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
       //     authenticated.value = false;
       //     return navigateTo('/login'); // Lỗi mạng
       // }
-  }
+  // }
   
   
 
@@ -54,14 +54,14 @@ export default defineNuxtRouteMiddleware(async (to) => {
     // }
 
   // if token exists and url is /login redirect to homepage
-  if (authenticated.value && token.value && to?.name === 'login' ) {
-    return navigateTo('/');
-  }
+  // if (authenticated.value && token.value && to?.name === 'login' ) {
+  //   return navigateTo('/');
+  // }
 
-  // if token doesn't exist redirect to log in
-  if (!authenticated.value && !token.value && to?.name !== 'login' ) {
-    abortNavigation();
-    return navigateTo('/login');
-  }
+  // // if token doesn't exist redirect to log in
+  // if (!authenticated.value && !token.value && to?.name !== 'login' ) {
+  //   abortNavigation();
+  //   return navigateTo('/login');
+  // }
 });
   

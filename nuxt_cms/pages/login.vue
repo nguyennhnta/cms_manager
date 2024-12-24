@@ -104,3 +104,46 @@ const login = async () => {
   }
 }
 </style>
+
+<!-- <template>
+  <div>
+    <h1>Login</h1>
+    <form @submit.prevent="login">
+      <div>
+        <label for="email">Email</label>
+        <input type="email" v-model="email" id="email" required />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" v-model="password" id="password" required />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { useAuth } from '@sidebase/nuxt-auth'
+
+const email = ref('')
+const password = ref('')
+const auth = useAuth()
+
+const login = async () => {
+  try {
+    // Đăng nhập và lưu token
+    await auth.loginWith('laravelPassport', {
+      data: {
+        email: email.value,
+        password: password.value,
+      },
+    })
+
+    // Sau khi đăng nhập thành công, chuyển hướng người dùng
+    useRouter().push('/') // Chuyển hướng đến trang Dashboard
+  } catch (error) {
+    console.error('Login failed:', error)
+  }
+}
+</script> -->
