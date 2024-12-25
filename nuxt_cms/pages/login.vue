@@ -27,16 +27,16 @@
       <button @click.prevent="login" class="button">Login</button>
     </div>
   </div>
-</template>s
+</template>
 <script lang="ts" setup>
 
 import { useAuthStore } from '~/stores/auth';
 
-const { authenticateUser } = useAuthStore(); // use auth store
+const { authenticateUser } = useAuthActions(); // use auth store
 
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
-const user = ref({
+const user = ref<{email: string, password : string}>({
   email: 'nguyennhdn@gmail.com',
   password: 'admin123',
 });
