@@ -1,6 +1,7 @@
 <template>
   <div>
-    <span class="title">403 Forbidden</span>
+    <h1>403 - Access Denied</h1>
+    <p>You do not have the necessary permissions to view this page.</p>
   </div>
 </template>
 
