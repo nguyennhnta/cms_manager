@@ -7,8 +7,8 @@
         <li v-if="!authenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/login">Login</nuxt-link>
         </li>
-        <li v-else="authenticated" class="loginBtn" style="float: right">
-          <nuxt-link @click="logout">Logout</nuxt-link>
+        <li v-else class="loginBtn" style="float: right">
+          <nuxt-link @click="logoutUser">Logout</nuxt-link>
         </li>
       </ul>
     </header>
@@ -26,11 +26,11 @@ import { useAuthStore } from '~/stores/auth';
 
 const router = useRouter();
 
-const { logUserOut } = useAuthStore();
+const { logout } = useAuthStore();
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
-const logout = () => {
-  logUserOut();
+const logoutUser = () => {
+  logout();
   router.push('/login');
 };
 </script>
