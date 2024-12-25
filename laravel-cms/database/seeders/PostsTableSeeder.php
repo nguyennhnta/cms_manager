@@ -14,12 +14,12 @@ class PostsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $userIds = User::pluck('id');
+//        $userIds = User::pluck('id');
         foreach (range(1, 10) as $index) {
             Post::create([
                 'title' => 'Bài viết số ' . $index,
                 'content' => 'Nội dung của bài viết số ' . $index,
-                'author_id' => $userIds->random(), // Chọn ngẫu nhiên 1 user làm tác giả
+                'author_id' => 1, // Chọn ngẫu nhiên 1 user làm tác giả
             ]);
         }
     }
