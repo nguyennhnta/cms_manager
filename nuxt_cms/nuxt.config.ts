@@ -33,7 +33,7 @@ export default defineNuxtConfig({
           if (/* some condition */ true) {
             page.meta ||= {}
             // Note that this will override any middleware set in `definePageMeta` in the page
-            page.meta.middleware = ['auth']
+            page.meta.middleware = ['auth', 'permission']
           }
           if (page.children) {
             setMiddleware(page.children)
@@ -51,5 +51,20 @@ export default defineNuxtConfig({
         }
       }
     }
-  }
+  },
+  // pages: true,
+  // router: {
+  //   extendRoutes(routes, resolve) {
+  //     routes.push({
+  //       path: '/admin',
+  //       component: resolve(__dirname, 'pages/admin.vue'),
+  //       meta: { role: 'admin', middleware: 'role' }, // yêu cầu role "admin"
+  //     });
+  //     routes.push({
+  //       path: '/settings',
+  //       component: resolve(__dirname, 'pages/settings.vue'),
+  //       meta: { permission: 'edit-settings', middleware: 'permission' }, // yêu cầu permission "edit-settings"
+  //     });
+  //   },
+  // },
 })

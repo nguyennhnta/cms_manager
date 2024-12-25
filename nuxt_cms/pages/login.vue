@@ -27,7 +27,7 @@
       <button @click.prevent="login" class="button">Login</button>
     </div>
   </div>
-</template>s
+</template>
 <script lang="ts" setup>
 
 import { useAuthStore } from '~/stores/auth';
