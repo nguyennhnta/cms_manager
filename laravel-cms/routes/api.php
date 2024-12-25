@@ -14,6 +14,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:api']], function() {
     Route::post('user', [AuthController::class, 'user']);
     Route::resource('posts', PostController::class);
+    Route::get('get_user_role', [AuthController::class, 'getUserRoles']);
 });
 
 Route::middleware('auth:api')->get('/auth/check-token', function () {
