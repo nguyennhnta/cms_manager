@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <!-- <header>
       <ul>
         <li><nuxt-link to="/">Home</nuxt-link></li>
         <li><nuxt-link to="/about">About</nuxt-link></li>
@@ -11,13 +11,13 @@
           <nuxt-link @click="logoutUser">Logout</nuxt-link>
         </li>
       </ul>
-    </header>
-    <div class="mainContent">
+    </header> -->
+    <div>
       <slot />
     </div>
-    <footer v-if="authenticated">
+    <!-- <footer v-if="authenticated">
       <h1>Footer</h1>
-    </footer>
+    </footer> -->
   </div>
 </template>
 <script lang="ts" setup>
@@ -80,8 +80,8 @@ header {
   }
 }
 
-.mainContent {
-  padding: 16px;
-  margin: 3rem auto;
-}
+// .mainContent {
+//   padding: 16px;
+//   margin: 3rem auto;
+// }
 </style>
