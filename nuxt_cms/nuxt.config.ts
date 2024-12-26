@@ -12,46 +12,66 @@ export default defineNuxtConfig({
     },
   },
   ssr: false,
-
-  modules: [
-    // ...
+  css: ['~/assets/css/main.css'],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
+  components: 
     [
-      '@pinia/nuxt',
-      {
-        autoImports: [
-          // automatically imports `defineStore`
-          'defineStore',
-        ],
-      },
-    ],
-  ],
+       '~/components'
+    ]
+  ,
 
-  hooks: {
-    'pages:extend' (pages) {
-      function setMiddleware (pages: NuxtPage[]) {
-        for (const page of pages) {
-          if (/* some condition */ true) {
-            page.meta ||= {}
-            // Note that this will override any middleware set in `definePageMeta` in the page
-            page.meta.middleware = ['auth', 'permission']
-          }
-          if (page.children) {
-            setMiddleware(page.children)
-          }
+  modules: [[
+  '@pinia/nuxt',
+  {
+    autoImports: [
+      // automatically imports `defineStore`
+      'defineStore',
+    ],
+  },
+], '@nuxtjs/tailwindcss', 'shadcn-nuxt'],
+
+shadcn: {
+  /**
+   * Prefix for all the imported component
+   */
+  prefix: '',
+  /**
+   * Directory that the component lives in.
+   * @default "./components/ui"
+   */
+  componentDir: './components/ui'
+},
+hooks: {
+  'pages:extend' (pages) {
+    function setMiddleware (pages: NuxtPage[]) {
+      for (const page of pages) {
+        if (/* some condition */ true) {
+          page.meta ||= {}
+          // Note that this will override any middleware set in `definePageMeta` in the page
+          page.meta.middleware = ['auth', 'permission']
+        }
+        if (page.children) {
+          setMiddleware(page.children)
         }
       }
-      setMiddleware(pages)
     }
-  },
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          silenceDeprecations: ["legacy-js-api"],
-        }
+    setMiddleware(pages)
+  }
+},
+vite: {
+  css: {
+    preprocessorOptions: {
+      scss: {
+        silenceDeprecations: ["legacy-js-api"],
       }
     }
-  },
+  }
+},
   // pages: true,
   // router: {
   //   extendRoutes(routes, resolve) {
