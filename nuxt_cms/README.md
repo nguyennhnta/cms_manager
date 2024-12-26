@@ -25,3 +25,7 @@ npx shadcn-vue@latest add sheet
 npx shadcn-vue@latest add table
 npx shadcn-vue@latest add tabs
 npx shadcn-vue@latest add tooltip
+npx shadcn-vue@latest add label
+npx shadcn-vue@latest add select
+npx shadcn-vue@latest add textarea
+npx shadcn-vue@latest add toggle-group
