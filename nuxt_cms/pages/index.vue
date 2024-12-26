@@ -217,7 +217,7 @@
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Support</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem><nuxt-link @click="logoutUser">Logout</nuxt-link></DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </header>
@@ -658,49 +658,60 @@ import {
   Users2,
 } from 'lucide-vue-next'
 
-// import { usePostStore } from "~/stores/posts";
-// import { useUserStore } from "~/stores/user";
+import { usePostStore } from "~/stores/posts";
+import { useUserStore } from "~/stores/user";
+import { useAuthStore } from '~/stores/auth';
 
-// const postStore = usePostStore();
-// const userStore  = useUserStore();
+const postStore = usePostStore();
+const userStore  = useUserStore();
 
-// const isEditing = ref(false);
-// const form = reactive({ id: null, title: "", content: "" });
+const router = useRouter();
+const { logout } = useAuthStore();
+// const { authenticated } = storeToRefs(useAuthStore());
 
-// const roles = computed(() => userStore.roles);
-// const permissions = computed(() => userStore.permissions);
+const isEditing = ref(false);
+const form = reactive({ id: null, title: "", content: "" });
+
+const roles = computed(() => userStore.roles);
+const permissions = computed(() => userStore.permissions);
 
 
-// const submitForm = async () => {
-//   if (isEditing.value) {
-//     await postStore.updatePost(form);
-//   } else {
-//     await postStore.addPost({ title: form.title, content: form.content });
-//   }
-//   resetForm();
-// };
+// Gọi action fetchPosts() khi component được load
+onMounted(async () => {
+  await postStore.fetchPosts();
+});
 
-// // Gọi action fetchPosts() khi component được load
-// onMounted(async () => {
-//   await postStore.fetchPosts();
-// });
+const logoutUser = () => {
+  console.log(323232);
+  logout();
+  router.push('/login');
+};
 
-// const resetForm = () => {
-//   form.id = null;
-//   form.title = "";
-//   form.content = "";
-//   isEditing.value = false;
-// };
+const submitForm = async () => {
+  if (isEditing.value) {
+    await postStore.updatePost(form);
+  } else {
+    await postStore.addPost({ title: form.title, content: form.content });
+  }
+  resetForm();
+};
 
-// const editPost = (post: {id: number, title: string, content: string}) => {
-//   form.id = post.id;
-//   form.title = post.title;
-//   form.content = post.content;
-//   isEditing.value = true;
-// };
+const resetForm = () => {
+  form.id = null;
+  form.title = "";
+  form.content = "";
+  isEditing.value = false;
+};
 
-// const deletePost = async (postId: number) => {
-//   await postStore.deletePost(postId);
-// };
+const editPost = (post: {id: number, title: string, content: string}) => {
+  form.id = post.id;
+  form.title = post.title;
+  form.content = post.content;
+  isEditing.value = true;
+};
+
+const deletePost = async (postId: number) => {
+  await postStore.deletePost(postId);
+};
 
 </script>

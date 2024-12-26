@@ -1,34 +1,115 @@
 <template>
-  <div>
-    <div class="title">
-      <h2>Login</h2>
+  <!-- <div class="flex items-center justify-center min-h-screen">
+    <Card class="mx-auto max-w-sm">
+      <CardHeader>
+        <CardTitle class="text-2xl">
+          Login
+        </CardTitle>
+        <CardDescription>
+          Enter your email below to login to your account
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div class="grid gap-4">
+          <div class="grid gap-2">
+            <Label for="email">Email</Label>
+            <Input
+              v-model="user.email"
+              id="email"
+              type="email"
+              placeholder="m@example.com"
+              required
+            />
+          </div>
+          <div class="grid gap-2">
+            <div class="flex items-center">
+              <Label for="password">Password</Label>
+              <a href="#" class="ml-auto inline-block text-sm underline">
+                Forgot your password?
+              </a>
+            </div>
+            <Input  v-model="user.password" id="password" type="password" placeholder="Enter Password"  required />
+          </div>
+          <Button @click.prevent="login" class="w-full">
+            Login
+          </Button>
+          <Button @click.prevent="" variant="outline" class="w-full">
+            Login with Google
+          </Button>
+        </div>
+        <div class="mt-4 text-center text-sm">
+          Don't have an account?
+          <a href="#" class="underline">
+            Sign up
+          </a>
+        </div>
+      </CardContent>
+    </Card>
+  </div> -->
+  <div class="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
+    <div class="flex items-center justify-center py-12">
+      <div class="mx-auto grid w-[350px] gap-6">
+        <div class="grid gap-2 text-center">
+          <h1 class="text-3xl font-bold">
+            Login
+          </h1>
+          <p class="text-balance text-muted-foreground">
+            Enter your email below to login to your account
+          </p>
+        </div>
+        <div class="grid gap-4">
+          <div class="grid gap-2">
+            <Label for="email">Email</Label>
+            <Input
+             v-model="user.email"
+              id="email"
+              type="email"
+              placeholder="m@example.com"
+              required
+            />
+          </div>
+          <div class="grid gap-2">
+            <div class="flex items-center">
+              <Label for="password">Password</Label>
+              <a
+                href="/forgot-password"
+                class="ml-auto inline-block text-sm underline"
+              >
+                Forgot your password?
+              </a>
+            </div>
+            <Input v-model="user.password"  id="password" type="password" required />
+          </div>
+          <Button  @click.prevent="login" type="submit" class="w-full">
+            Login
+          </Button>
+          <Button variant="outline" class="w-full">
+            Login with Google
+          </Button>
+        </div>
+        <div class="mt-4 text-center text-sm">
+          Don't have an account?
+          <a href="#" class="underline">
+            Sign up
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="container form">
-      <label for="uname"><b>Username</b></label>
-      <input
-        v-model="user.email"
-        type="text"
-        class="input"
-        placeholder="Enter Username"
-        name="uname"
-        required
-      />
-
-      <label for="psw"><b>Password</b></label>
-      <input
-        v-model="user.password"
-        type="password"
-        class="input"
-        placeholder="Enter Password"
-        name="psw"
-        required
-      />
-
-      <button @click.prevent="login" class="button">Login</button>
+    <div class="hidden bg-muted lg:block">
+      <img
+        src="./placeholder.svg"
+        alt="Image"
+        width="1920"
+        height="1080"
+        class="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+      >
     </div>
   </div>
 </template>
 <script lang="ts" setup>
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 import { useAuthStore } from '~/stores/auth';
 
