@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->foreignId('author_id')->constrained('users')->onDelete('cascade'); // Người viết
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->text('status')->default('Draft');
+            $table->string('price')->nullable();
+            $table->text('quantity')->nullable();
             $table->timestamps();
         });
     }

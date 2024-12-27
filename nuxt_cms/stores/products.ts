@@ -1,9 +1,40 @@
+import * as product from '~/models/products/types';
 
+
+type State = {
+  products: product.ProductsList;
+  loading: boolean;
+  error: string | null;
+};
 export const useProductstore = defineStore('products', {
-  state: () => ({
-    products: [] as any[], 
-    loading: false, 
-    error: null as string | null,
+  state: (): State => ({
+    products: {
+      current_page: '',
+      data: [
+        {
+          id: 0,
+          name: '',
+          status: '',
+          description: '',
+          price: 0,
+          quantity: 1,
+          created_at: '',
+        }
+      ],
+      first_page_url: '',
+      from: 1,
+      last_page: 1,
+      last_page_url: '',
+      link: [],
+      next_page_url: '',
+      path: '',
+      per_page: 0,
+      prev_page_url: '',
+      to: 0,
+      total: 0,
+    },
+    loading: false,
+    error: null,
   }),
   getters: {
     axiosInstance(): any {
@@ -32,10 +63,13 @@ export const useProductstore = defineStore('products', {
       }
     },
 
-    async addProduct(product: { name: string,description: string, status: string,  price: number, quantity: string}) {
+    async addProduct(product: product.Product) {
       try {
         const { data } = await this.axiosInstance.post("/products", product);
-        this.products.push(data); 
+        if(data)
+        {
+          this.products?.data.push(data); 
+        }
       } catch (error: any) {
         this.error = error.response?.data?.message || "Error product";
       }

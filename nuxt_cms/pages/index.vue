@@ -247,7 +247,7 @@
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    <TableRow v-for="product in products.data" :key="product.id">
+                    <TableRow v-for="product in products" :key="product.id">
                       <TableCell class="hidden sm:table-cell">
                         <img alt="Product image" class="aspect-square rounded-md object-cover" height="64"
                           src="./placeholder.svg" width="64">
@@ -282,8 +282,8 @@
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuItem @click="editProduct(product.id)">Edit</DropdownMenuItem>
-                            <DropdownMenuItem @click="deleteProduct(product.id)">Delete</DropdownMenuItem>
+                            <DropdownMenuItem @click="editProduct(product)">Edit</DropdownMenuItem>
+                            <DropdownMenuItem @click="deleteProduct(product)">Delete</DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </TableCell>
@@ -348,6 +348,8 @@ import { useProductstore } from "~/stores/products";
 import { useUserStore } from "~/stores/user";
 import { useAuthStore } from '~/stores/auth';
 import ProductModal from '@/components/common/popups/ProductModal.vue'; // Adjust the import path based on your project structure
+import * as product from '~/models/products/types';
+
 
 const productStore = useProductstore();
 const userStore = useUserStore();
@@ -358,7 +360,7 @@ const isEditing = ref(false);
 const form = reactive({ id: null, title: "", content: "" });
 const roles = computed(() => userStore.roles);
 const permissions = computed(() => userStore.permissions);
-const products = ref<any>([]);
+const products = ref<product.Product[]>([]);
 const totalPages = ref<number>(1);
 const currentPage = ref<number>(1);
 const lastPage = ref<number>(1);
@@ -368,7 +370,7 @@ const { toast } = useToast();
 const fetchProducts = async (page: number, perPage: number) => {
   try {
     await productStore.fetchProducts(page, perPage);
-    products.value = productStore.products;
+    products.value = productStore.products.data;
     totalPages.value = productStore.products.total;
     lastPage.value = productStore.products.last_page;
     currentPage.value = page;
@@ -380,7 +382,7 @@ onMounted(async () => {
   fetchProducts(currentPage.value, perPage.value);
 });
 
-const handleSave = (product: { name: string, description: string, status: string,  price: number, quantity: string }) => {
+const handleSave = (product : product.Product) => {
   productStore.addProduct(product);
   isModalOpen.value = false;
   toast({
@@ -412,14 +414,14 @@ const logoutUser = () => {
 //   isEditing.value = false;
 // };
 
-const editProduct = (product: { id: number, title: string, content: string }) => {
+const editProduct = (product : product.Product) => {
   // form.id = product.id;
   // form.title = product.title;
   // form.content = product.content;
   // isEditing.value = true;
 };
 
-const deleteProduct = async (productId: number) => {
+const deleteProduct = async (product : product.Product) => {
   // await productStore.deleteProduct(productId);
 };
 

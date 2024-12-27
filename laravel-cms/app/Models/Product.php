@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Post extends Model
+class Product extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'content',
-        'author_id', // Hoặc trường khác nếu cần
+        'name',
+        'description',
+        'status',
+        'price',
+        'quantity',
     ];
 }
