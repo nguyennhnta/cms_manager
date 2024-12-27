@@ -4,22 +4,23 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Post;
+use App\Models\Product;
 use App\Models\User;
 
-class PostsTableSeeder extends Seeder
+class ProductsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-//        $userIds = User::pluck('id');
-        foreach (range(1, 10) as $index) {
-            Post::create([
-                'title' => 'Bài viết số ' . $index,
-                'content' => 'Nội dung của bài viết số ' . $index,
-                'author_id' => 1, // Chọn ngẫu nhiên 1 user làm tác giả
+        foreach (range(1, 125) as $index) {
+            Product::create([
+                'name' => 'Product  '. $index ,
+                'description' => 'Lorem ipsum dolor sit amet. Est perferendis dolorem et cupiditate vitae in Quis voluptatem. Et natus ipsum id praesentium veritatis et autem expedita et sapiente aliquam.' ,
+                'status' => 'Active',
+                'price' => '$499.99',
+                'quantity' => '2',
             ]);
         }
     }
