@@ -87,13 +87,13 @@ export const useProductstore = defineStore('products', {
     //   }
     // },
     
-    async deleteProductt(postId: number) {
-      try {
-        await this.axiosInstance.delete(`/api/product/${postId}`);
-        this.products = this.products.filter((post) => post.id !== postId);
-      } catch (error: any) {
-        this.error = error.response?.data?.message || "Error delete Product";
-      }
-    },
+    // async deleteProductt(postId: number) {
+    //   try {
+    //     await this.axiosInstance.delete(`/api/product/${postId}`);
+    //     this.products = this.products.filter((post) => post.id !== postId);
+    //   } catch (error: any) {
+    //     this.error = error.response?.data?.message || "Error delete Product";
+    //   }
+    // },
   },
 });
