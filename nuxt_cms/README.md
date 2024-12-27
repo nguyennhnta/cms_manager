@@ -4,7 +4,7 @@ Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduct
 
 ## Setup
 
-## Use node version 20
+## Use node version 20, and shadcn-vue and taiwindcss for nuxt
 
 Make sure to install dependencies:
 
@@ -14,6 +14,8 @@ npm install
 ```bash
 # npm
 npm run dev
+
+npx shadcn-vue@latest init
 
 npx shadcn-vue@latest add button
 npx shadcn-vue@latest add card
@@ -29,3 +31,5 @@ npx shadcn-vue@latest add label
 npx shadcn-vue@latest add select
 npx shadcn-vue@latest add textarea
 npx shadcn-vue@latest add toggle-group
+npx shadcn-vue@latest add pagination
+npx shadcn-vue@latest add toast
