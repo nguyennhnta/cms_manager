@@ -60,6 +60,9 @@
   </div>
 </template>
 <script lang="ts" setup>
+definePageMeta({
+  layout: 'custom'
+})
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'

@@ -4,8 +4,8 @@ export type Product = {
     name: string;
     status: string;
     description: string;
-    price: number;
-    quantity: number;
+    price: number | null;
+    quantity: number | null;
     created_at: string;
   }
   
@@ -13,8 +13,8 @@ export type Product = {
     current_page: string;
     data: Product[];
     first_page_url: string;
-    from: number;
-    last_page: number;
+    from: number ;
+    last_page: number ;
     last_page_url: string;
     link: any[];
     next_page_url: string;
@@ -22,6 +22,6 @@ export type Product = {
     per_page: number;
     prev_page_url: string;
     to: number;
-    total: number;
+    total: number ;
   }
   
