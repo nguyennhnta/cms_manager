@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->text('status')->default('Draft');
+            $table->text('status')->nullable();
             $table->string('price')->nullable();
             $table->text('quantity')->nullable();
             $table->timestamps();
