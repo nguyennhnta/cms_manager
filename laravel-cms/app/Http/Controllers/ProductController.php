@@ -38,12 +38,12 @@ class ProductController extends Controller implements  HasMiddleware
      * @return mixed
      */
     public function show(Product $product) {
-        if (!auth()->user()->hasAnyRole(['editor', 'admin'])) {
-            return response()->json([
-                'message' => 'You do not have the required authorization.',
-                'status' => 403
-            ], 403);
-        }
+//        if (!auth()->user()->hasAnyRole(['editor', 'admin'])) {
+//            return response()->json([
+//                'message' => 'You do not have the required authorization.',
+//                'status' => 403
+//            ], 403);
+//        }
         return response()->json($product);
     }
 
@@ -72,6 +72,9 @@ class ProductController extends Controller implements  HasMiddleware
      */
     public function destroy(Product $product) {
         $product->delete();
-        return response()->json(null, 204);
+        return response()->json([
+            'message' => 'Product deleted successfully',
+            'product_id' => $product->id, // Optionally include the product ID or other relevant information
+        ], 200); //
     }
 }
