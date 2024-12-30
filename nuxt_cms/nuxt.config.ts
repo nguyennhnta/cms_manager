@@ -72,7 +72,7 @@ vite: {
     }
   }
 },
-  // pages: true,
+  pages: true,
   // router: {
   //   extendRoutes(routes, resolve) {
   //     routes.push({

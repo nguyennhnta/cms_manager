@@ -50,7 +50,7 @@
     </div>
     <div class="hidden bg-muted lg:block">
       <img
-        src="./placeholder.svg"
+        src="/logo.jpg"
         alt="Image"
         width="1920"
         height="1080"

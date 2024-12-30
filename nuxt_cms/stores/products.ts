@@ -3,9 +3,11 @@ import * as product from '~/models/products/types';
 
 type State = {
   products: product.ProductsList;
+  product: product.Product;
   loading: boolean;
   error: string | null;
-};
+  message: string | null; 
+}
 export const useProductstore = defineStore('products', {
   state: (): State => ({
     products: {
@@ -33,8 +35,18 @@ export const useProductstore = defineStore('products', {
       to: 1,
       total: 1,
     },
+    product: {
+      id: 1,
+      name: '',
+      status: '',
+      description: '',
+      price: null,
+      quantity: null,
+      created_at: '',
+    }, 
     loading: false,
     error: null,
+    message: null,
   }),
   getters: {
     axiosInstance(): any {
@@ -46,7 +58,7 @@ export const useProductstore = defineStore('products', {
     async fetchProducts( page : number ,perPage : number) {
       this.loading = true;
       this.error = null;
-
+      this.message = null; 
       try {
         const response = await this.axiosInstance.get('/products' ,{
           params: {
@@ -63,37 +75,66 @@ export const useProductstore = defineStore('products', {
       }
     },
 
+    async showProduct(id : number) {
+      this.loading = true;
+      this.message = null;
+      try {
+        const response = await this.axiosInstance.get(`/products/${id}`)
+        this.product = response.data;
+      } catch (error) {
+        this.error = 'Failed to show product'
+        console.error(error)
+      } finally {
+        this.loading = false
+      }
+    },
+
     async addProduct(product: product.Product) {
+      this.message = null;
+      this.error = null;
       try {
         const { data } = await this.axiosInstance.post("/products", product);
         if(data)
         {
-          this.products?.data.push(data); 
+          this.products?.data.unshift(data);
+          this.message = "Product added successfully";
         }
       } catch (error: any) {
         this.error = error.response?.data?.message || "Error product";
       }
     },
 
-    // async updateProduct(product: { name: string, price: string, description: string, quantity: string }) {
-    //   try {
-    //     await this.axiosInstance.put(`/api/product/${product.id}`, product);
-    //     const index = this.products.findIndex((post) => post.id === updatedPost.id);
-    //     if (index !== -1) {
-    //       this.products[index] = updatedPost;
-    //     }
-    //   } catch (error: any) {
-    //     this.error = error.response?.data?.message || "Error update Product";
-    //   }
-    // },
+    async updateProduct(productId : number, updatedProduct : product.Product) {
+      this.loading = true;
+      this.message = null;
+      this.error = null;
+      try {
+        const response = await this.axiosInstance.put(`/products/${productId}`, updatedProduct);
+        if(response) {
+          this.product = response.data;
+          this.message = "Product updated successfully"; 
+          return response;
+        }
+      } catch (error) {
+        console.error('Failed to update product:', error)
+        this.error = 'Failed to update product'
+        throw error
+      } finally {
+        this.loading = false
+      }
+    },
     
-    // async deleteProductt(postId: number) {
-    //   try {
-    //     await this.axiosInstance.delete(`/api/product/${postId}`);
-    //     this.products = this.products.filter((post) => post.id !== postId);
-    //   } catch (error: any) {
-    //     this.error = error.response?.data?.message || "Error delete Product";
-    //   }
-    // },
+    async deleteProduct(product: product.Product) {
+      try {
+        const response = await this.axiosInstance.delete(`/products/${product.id}`);
+        if (response.status === 200) {
+          this.message = `Product ${product.name} deleted successfully.`;
+          return response;
+        }
+      } catch (error: any) {
+        console.error('Failed to delete product:', error);
+        this.error = error.response?.data?.message || "Error deleting product";
+      }
+    },
   },
 });

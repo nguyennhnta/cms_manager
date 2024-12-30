@@ -38,8 +38,8 @@
         <DropdownMenuItem>New Team</DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>
-        <nuxt-link @click="logoutUser">Logout</nuxt-link>
+      <DropdownMenuItem @click="logoutUser">
+        Logout
         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
       </DropdownMenuItem>
     </DropdownMenuContent>
