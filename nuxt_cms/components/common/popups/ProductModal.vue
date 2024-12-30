@@ -81,7 +81,8 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue';
+
+import { ref, watch, defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
   initialForm: {
@@ -91,38 +92,49 @@ const props = defineProps({
       description: '',
       status: '',
       price: null,
-      quantity: null, 
-    }), 
+      quantity: null,
+    }),
   },
 });
 
 const emit = defineEmits(['close', 'save']);
-
 const form = ref({ ...props.initialForm });
-
-//validator
 const errors = ref({});
+
+const clearError = (field, validate) => {
+  watch(() => form.value[field], (newVal) => {
+    if (validate(newVal)) {
+      delete errors.value[field];
+    }
+  });
+};
+
+const validators = {
+  name: (value) => value && value.trim() !== '',
+  description: (value) => value && value.trim() !== '',
+  status: (value) => value && value.trim() !== '',
+  price: (value) => value && !isNaN(value),
+  quantity: (value) => value && !isNaN(value),
+};
+
+Object.keys(validators).forEach((field) => {
+  clearError(field, validators[field]);
+});
 
 const validateForm = () => {
   errors.value = {};
-  
-  if (!form.value.name) errors.value.name = 'Name is required.';
-  if (!form.value.description) errors.value.description = 'Description is required.';
-  if (!form.value.status) errors.value.status = 'Status is required.';
-  if (!form.value.price || isNaN(form.value.price)) {
-    errors.value.price = 'Price must be a valid number.';
-  }
-  if (!form.value.quantity || isNaN(form.value.quantity)) {
-    errors.value.quantity = 'Quantity must be a valid number.';
-  }
-
-  return Object.keys(errors.value).length === 0; // Form is valid if no errors
+  Object.keys(validators).forEach((field) => {
+    if (!validators[field](form.value[field])) {
+      errors.value[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} is invalid.`;
+    }
+  });
+  return Object.keys(errors.value).length === 0;
 };
 
 const saveProduct = () => {
-  if (!validateForm()) return; // Stop if validation fail
+  if (!validateForm()) return;
   emit('save', form.value);
-  form.value = { name: '',description: '', status: '', price: null, quantity: null }; // Reset form with quantity
+  form.value = { name: '', description: '', status: '', price: null, quantity: null };
 };
 </script>
 
