@@ -4,72 +4,32 @@ Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduct
 
 ## Setup
 
+## Use node version 20, and shadcn-vue and taiwindcss for nuxt
+
 Make sure to install dependencies:
 
 ```bash
 # npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
 ```bash
 # npm
 npm run dev
 
-# pnpm
-pnpm dev
+npx shadcn-vue@latest init
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+npx shadcn-vue@latest add button
+npx shadcn-vue@latest add card
+npx shadcn-vue@latest add badge
+npx shadcn-vue@latest add input
+npx shadcn-vue@latest add dropdown-menu
+npx shadcn-vue@latest add breadcrumb
+npx shadcn-vue@latest add sheet
+npx shadcn-vue@latest add table
+npx shadcn-vue@latest add tabs
+npx shadcn-vue@latest add tooltip
+npx shadcn-vue@latest add label
+npx shadcn-vue@latest add select
+npx shadcn-vue@latest add textarea
+npx shadcn-vue@latest add toggle-group
+npx shadcn-vue@latest add pagination
+npx shadcn-vue@latest add toast

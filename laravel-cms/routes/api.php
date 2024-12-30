@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -13,7 +13,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:api']], function() {
     Route::post('user', [AuthController::class, 'user']);
-    Route::resource('posts', PostController::class);
+    Route::resource('products', ProductController::class);
     Route::get('get_user_role', [AuthController::class, 'getUserRoles']);
 });
 
