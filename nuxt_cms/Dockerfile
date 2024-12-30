@@ -1,16 +1,18 @@
 # Stage 1: Cài đặt dependencies và chạy ở chế độ phát triển
-FROM node:22 AS development
+FROM node:20 AS development
 
 
 # Cài đặt pnpm
-RUN npm install -g pnpm
+# RUN npm install
+# RUN npm install -g pnpm
 
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+# COPY package.json pnpm-lock.yaml ./
+COPY package.json package-lock.json ./
 
-#RUN npm install
-RUN pnpm install
+RUN npm install
+# RUN pnpm install
 
 
 COPY . .
@@ -19,8 +21,8 @@ COPY . .
 EXPOSE 8080
 
 # Chế độ phát triển: chạy Dev Server với hot-reload
-#CMD ["npm", "run", "dev"]
-CMD ["pnpm", "run", "dev"]
+CMD ["npm", "run", "dev"]
+# CMD ["pnpm", "run", "dev"]
 
 # Stage 2: Build và phục vụ ứng dụng ở chế độ production
 FROM node:16 AS build

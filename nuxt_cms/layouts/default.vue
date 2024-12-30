@@ -1,87 +1,137 @@
 <template>
-  <div>
-    <header>
-      <ul>
-        <li><nuxt-link to="/">Home</nuxt-link></li>
-        <li><nuxt-link to="/about">About</nuxt-link></li>
-        <li v-if="!authenticated" class="loginBtn" style="float: right">
-          <nuxt-link to="/login">Login</nuxt-link>
-        </li>
-        <li v-else class="loginBtn" style="float: right">
-          <nuxt-link @click="logoutUser">Logout</nuxt-link>
-        </li>
-      </ul>
-    </header>
-    <div class="mainContent">
-      <slot />
-    </div>
-    <footer v-if="authenticated">
-      <h1>Footer</h1>
-    </footer>
-  </div>
+      <div class="flex min-h-screen w-full flex-col bg-muted/40">
+            <aside class="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
+                  <nav class="flex flex-col items-center gap-4 px-2 py-4">
+                        <a href="#"
+                              class="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base">
+                              <Package2 class="h-4 w-4 transition-all group-hover:scale-110" />
+                              <span class="sr-only">Acme Inc</span>
+                        </a>
+                        <TooltipProvider>
+                              <Tooltip>
+                                    <TooltipTrigger as-child>
+                                          <a href="#"
+                                                class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+                                                <Home class="h-5 w-5" />
+                                                <span class="sr-only">Dashboard</span>
+                                          </a>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="right">
+                                          Dashboard
+                                    </TooltipContent>
+                              </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                              <Tooltip>
+                                    <TooltipTrigger as-child>
+                                          <a href="#"
+                                                class="flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8">
+                                                <ShoppingCart class="h-5 w-5" />
+                                                <span class="sr-only">Orders</span>
+                                          </a>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="right">
+                                          Orders
+                                    </TooltipContent>
+                              </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                              <Tooltip>
+                                    <TooltipTrigger as-child>
+                                          <a href="/product"
+                                                class="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+                                                <Package class="h-5 w-5" />
+                                                <span class="sr-only">Products</span>
+                                          </a>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="right">
+                                          Products
+                                    </TooltipContent>
+                              </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                              <Tooltip>
+                                    <TooltipTrigger as-child>
+                                          <a href="#"
+                                                class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+                                                <Users2 class="h-5 w-5" />
+                                                <span class="sr-only">Customers</span>
+                                          </a>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="right">
+                                          Customers
+                                    </TooltipContent>
+                              </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                              <Tooltip>
+                                    <TooltipTrigger as-child>
+                                          <a href="#"
+                                                class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+                                                <LineChart class="h-5 w-5" />
+                                                <span class="sr-only">Analytics</span>
+                                          </a>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="right">
+                                          Analytics
+                                    </TooltipContent>
+                              </Tooltip>
+                        </TooltipProvider>
+                  </nav>
+                  <nav class="mt-auto flex flex-col items-center gap-4 px-2 py-4">
+                        <TooltipProvider>
+                              <Tooltip>
+                                    <TooltipTrigger as-child>
+                                          <a href="#"
+                                                class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8">
+                                                <Settings class="h-5 w-5" />
+                                                <span class="sr-only">Settings</span>
+                                          </a>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="right">
+                                          Settings
+                                    </TooltipContent>
+                              </Tooltip>
+                        </TooltipProvider>
+                  </nav>
+            </aside>
+            <div class="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+                  <div class="border-b">
+                        <div class="flex h-16 items-center px-4">
+                        <MainNav class="mx-6" />
+                              <div class="ml-auto flex items-center space-x-4">
+                                    <div class="relative ml-auto flex-1 md:grow-0">
+                                          <Search />
+                                    </div>
+                                    <UserNav />
+                                    
+                              </div>
+                        </div>
+                  </div>
+                  <slot />
+            </div>
+      </div>
 </template>
-<script lang="ts" setup>
-// import { storeToRefs } from 'pinia'; // nuxt auto import  storeToRefs no need import
-import { useAuthStore } from '~/stores/auth';
-
-const router = useRouter();
-
-const { logout } = useAuthStore();
-const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
-
-const logoutUser = () => {
-  logout();
-  router.push('/login');
-};
+<script setup lang="ts">
+import { Button } from '@/components/ui/button'
+import {
+      Card,
+      CardContent,
+      CardDescription,
+      CardHeader,
+      CardTitle,
+} from '@/components/ui/card'
+import {
+      Tabs,
+      TabsContent,
+      TabsList,
+      TabsTrigger,
+} from '@/components/ui/tabs'
+import DateRangePicker from '@/components/dashboard/DateRangePicker.vue'
+import MainNav from '@/components/dashboard/MainNav.vue'
+import Overview from '@/components/dashboard/Overview.vue'
+import RecentSales from '@/components/dashboard/RecentSales.vue'
+import Search from '@/components/dashboard/Search.vue'
+import UserNav from '@/components/dashboard/UserNav.vue'
+import { CircleUser, File, Home, LineChart, ListFilter, MoreHorizontal, Package, Package2, PanelLeft, PlusCircle, Settings, ShoppingCart, Users2 } from 'lucide-vue-next'
 </script>
-
-<style lang="scss">
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 0;
-  margin: 0;
-}
-header {
-  // position: fixed;
-  top: 0;
-  width: 100%;
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-  }
-
-  li {
-    float: left;
-    border-right: 1px solid #bbb;
-  }
-
-  li:last-child {
-    border-right: none;
-  }
-
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  li a:hover:not(.loginBtn) {
-    background-color: #111;
-  }
-
-  .loginBtn {
-    background-color: #04aa6d;
-  }
-}
-
-.mainContent {
-  padding: 16px;
-  margin: 3rem auto;
-}
-</style>
