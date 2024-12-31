@@ -10,7 +10,10 @@ interface LoginResponse {
   token_type: string;
   expires_at: string;
 }
-  
+interface GoogleUrl
+{
+  url : string;
+}
 export const useAuthActions = () => {
   const authStore = useAuthStore();
   const userStore = useUserStore();
@@ -26,10 +29,27 @@ export const useAuthActions = () => {
     if (data.value && data.value.access_token) {
       authStore.setToken(data.value.access_token);
       await userStore.fetchRolesAndPermissions(data.value.access_token);
+      const user = await userStore.fetchUserInfo(data.value.access_token);
+      authStore.setUser(user);
+    }
+  };
+
+  const authenticateUserGoogle = async () => {
+    try {
+        const { data } = await useFetch<GoogleUrl>('http://localhost:8080/api/auth/google');
+        if (data.value && data.value.url) {
+          window.location.href = data.value.url;
+
+        } else {
+          console.error("No URL found in the response.");
+        }
+    } catch (error) {
+      console.error("Error during Google authentication:", error);
     }
   };
 
   return {
     authenticateUser,
+    authenticateUserGoogle
   };
 };

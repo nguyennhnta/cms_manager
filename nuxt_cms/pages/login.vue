@@ -36,7 +36,7 @@
           <Button  @click.prevent="login" type="submit" class="w-full">
             Login
           </Button>
-          <Button variant="outline" class="w-full">
+          <Button variant="outline" class="w-full" @click="loginWithGoogle">
             Login with Google
           </Button>
         </div>
@@ -69,7 +69,7 @@ import { Label } from '@/components/ui/label'
 
 import { useAuthStore } from '~/stores/auth';
 
-const { authenticateUser } = useAuthActions(); // use auth store
+const { authenticateUser, authenticateUserGoogle } = useAuthActions(); // use auth store
 
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
@@ -84,6 +84,14 @@ const login = async () => {
   // redirect to homepage if user is authenticated
   if (authenticated) {
     router.push('/');
+  }
+};
+
+const loginWithGoogle = async () => {
+  try {
+    await authenticateUserGoogle();
+  } catch (error) {
+    console.error('Error fetching Google login URL:', error);
   }
 };
 </script>
