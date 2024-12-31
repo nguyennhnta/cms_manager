@@ -5,7 +5,7 @@
     <DropdownMenuTrigger as-child>
       <Button variant="ghost" class="relative h-8 w-8 rounded-full">
         <Avatar class="h-8 w-8">
-          <AvatarImage src="/avatars/02.png" alt="@shadcn" />
+          <AvatarImage :src="authStore.user.avatar" alt="@shadcn" />
           <AvatarFallback>SC</AvatarFallback>
         </Avatar>
       </Button>
@@ -14,10 +14,10 @@
       <DropdownMenuLabel class="font-normal flex">
         <div class="flex flex-col space-y-1">
           <p class="text-sm font-medium leading-none">
-            shadcn
+            {{ authStore.user.name}}
           </p>
           <p class="text-xs leading-none text-muted-foreground">
-            m@example.com
+            {{ authStore.user.email}}
           </p>
         </div>
       </DropdownMenuLabel>
@@ -63,11 +63,34 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAuthStore } from '~/stores/auth';
+
+
 const router = useRouter();
 const { logout } = useAuthStore();
+const authStore = useAuthStore();
+
+authStore.loadFromCookies();
 
 const logoutUser = () => {
   logout();
   router.push('/login');
 };
 </script>
+<style scoped>
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%; /* Đảm bảo ảnh là hình tròn */
+}
+
+.img-check {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.text-muted-foreground {
+  color: #6b7280; /* Màu sắc cho fallback */
+}
+</style>

@@ -53,7 +53,8 @@ hooks: {
         if (/* some condition */ true) {
           page.meta ||= {}
           // Note that this will override any middleware set in `definePageMeta` in the page
-          page.meta.middleware = ['auth', 'permission']
+          page.meta.middleware = ['auth']
+          // page.meta.middleware = ['auth', 'permission']
         }
         if (page.children) {
           setMiddleware(page.children)
