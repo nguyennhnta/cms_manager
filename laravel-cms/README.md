@@ -10,8 +10,9 @@ B8. php artisan cache:clear
 B9. php artisan view:clear
 
 rebuild docker image :docker-compose up -d --build --force-recreate
-docker-compose -f docker-compose.dev.yml build --no-cache
-docker-compose -f docker-compose.dev.yml up -d
+docker-compose build --no-cache
+docker-compose  up -d
+docker-compose  down
 docker-compose -f docker-compose.dev.yml down
 
 php artisan config:cache

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\User;
 use Laravel\Passport\Passport;
+use Laravel\Socialite\Facades\Socialite;
 
 
 class AuthController extends Controller
@@ -30,6 +31,7 @@ class AuthController extends Controller
         $token = $user->createToken('LaravelAuthApp')->accessToken;
 
         return response()->json(['token' => $token], 200);
+
     }
 
     /**
@@ -95,5 +97,42 @@ class AuthController extends Controller
 //            'permissions' => $user->getPermissionNames(),
             'permissions' => $user->getAllPermissions()->pluck('name'),
         ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function redirectToGoogle()
+    {
+        $url = Socialite::driver('google')->stateless()->redirect()->getTargetUrl();
+        return response()->json(['url' => $url]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function handleGoogleCallback()
+    {
+        try {
+            $googleUser = Socialite::driver('google')->stateless()->user();
+            $user = User::updateOrCreate(
+                ['email' => $googleUser->email],
+                [
+                    'name' => $googleUser->name,
+                    'google_id' => $googleUser->id,
+                    'avatar' => $googleUser->avatar,
+                ]
+            );
+
+            $token = $user->createToken('Personal Access Token')->accessToken;
+
+//            return response()->json([
+//                'user' => $user,
+//                'token' => $token,
+//            ]);
+            return redirect('http://localhost:8081/auth/google/callback/?token='.$token.'&user_id='.$user->id);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Unable to login'], 500);
+        }
     }
 }
