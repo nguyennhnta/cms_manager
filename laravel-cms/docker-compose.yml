@@ -28,6 +28,7 @@ services:
             SERVICE_NAME: mysql
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max_connections=2213 --group_concat_max_len=1000000
         volumes:
+            - mysql_data:/var/lib/mysql
             - ./docker-compose/mysql:/docker-entrypoint-initdb.d
         networks:
             - laravel_cms
@@ -56,7 +57,8 @@ services:
 #        - db
 #      networks:
 #        - laravel_cms
-
+volumes:
+  mysql_data:
 networks:
   laravel_cms:
         driver: bridge
