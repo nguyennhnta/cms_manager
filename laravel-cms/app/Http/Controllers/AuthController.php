@@ -126,10 +126,6 @@ class AuthController extends Controller
 
             $token = $user->createToken('Personal Access Token')->accessToken;
 
-//            return response()->json([
-//                'user' => $user,
-//                'token' => $token,
-//            ]);
             return redirect('http://localhost:8081/auth/google/callback/?token='.$token.'&user_id='.$user->id);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unable to login'], 500);
