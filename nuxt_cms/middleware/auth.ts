@@ -5,7 +5,7 @@ import { useAuthStore } from '~/stores/auth';
 export default defineNuxtRouteMiddleware(async (to : any) => {
   const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
   const token = useCookie('token'); // get token from cookies
-  if (to.path === '/auth/google/callback/') {
+  if (to.path === '/auth/google/callback/' || to.path === '/signup') {
     return;
   }
 
