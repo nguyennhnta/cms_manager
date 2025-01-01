@@ -18,7 +18,7 @@ class ProductsTableSeeder extends Seeder
             Product::create([
                 'name' => 'Product  '. $index ,
                 'description' => 'Lorem ipsum dolor sit amet. Est perferendis dolorem et cupiditate vitae in Quis voluptatem. Et natus ipsum id praesentium veritatis et autem expedita et sapiente aliquam.' ,
-                'status' => 'Active',
+                'status' => 'Published',
                 'price' => '$499.99',
                 'quantity' => '2',
             ]);
