@@ -14,9 +14,41 @@ interface GoogleUrl
 {
   url : string;
 }
+
+interface RegisterUser{
+  firstName : string;
+  lastName : string;
+  email : string;
+  password: string;
+}
+interface RegisterResponse{
+  token: string;
+  message: string;
+}
 export const useAuthActions = () => {
   const authStore = useAuthStore();
   const userStore = useUserStore();
+
+  const registerUser = async ({ firstName, lastName, email, password }: RegisterUser) => {
+    const fullName = `${firstName} ${lastName}`;
+    try {
+      const { data } = await useFetch<RegisterResponse>('http://localhost:8080/api/register', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: { name: fullName, email, password },
+      });
+
+      if (data.value && data.value.token) {
+        authStore.setToken(data.value.token);
+        await userStore.fetchRolesAndPermissions(data.value.token);
+        const user = await userStore.fetchUserInfo(data.value.token);
+        authStore.setUser(user);
+        return { success: true, message: 'Registration successful!' };
+      }
+    } catch (error) {
+      console.error('Error during user registration:', error);
+    }
+  };
 
   const authenticateUser = async ({ email, password } : User) => {
     const { data } = await useFetch<LoginResponse>('http://localhost:8080/api/login', {
@@ -49,6 +81,7 @@ export const useAuthActions = () => {
   };
 
   return {
+    registerUser,
     authenticateUser,
     authenticateUserGoogle
   };
