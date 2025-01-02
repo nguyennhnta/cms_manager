@@ -10,6 +10,7 @@ export const useAuthStore = defineStore('auth', {
       email: '',
       avatar: '',
     },
+    message: '',
   }),
   actions: {
     setUser(user :any) {
@@ -40,6 +41,9 @@ export const useAuthStore = defineStore('auth', {
       };
       useCookie('token').value = null; // Xóa token cookie
       useCookie('user').value = null; // Xóa user cookie
+    },
+    setMessage( message : string){
+      this.message = this.message;
     },
 
     loadFromCookies() {
