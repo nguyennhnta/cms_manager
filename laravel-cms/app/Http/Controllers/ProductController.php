@@ -74,7 +74,7 @@ class ProductController extends Controller implements  HasMiddleware
         $product->delete();
         return response()->json([
             'message' => 'Product deleted successfully',
-            'product_id' => $product->id, // Optionally include the product ID or other relevant information
+            'product_id' => $product->id,
         ], 200); //
     }
 }
