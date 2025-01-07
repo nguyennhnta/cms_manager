@@ -81,7 +81,7 @@ const logoutUser = () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%; /* Đảm bảo ảnh là hình tròn */
+  border-radius: 50%; 
 }
 
 .img-check {
@@ -91,6 +91,6 @@ const logoutUser = () => {
 }
 
 .text-muted-foreground {
-  color: #6b7280; /* Màu sắc cho fallback */
+  color: #6b7280;
 }
 </style>
