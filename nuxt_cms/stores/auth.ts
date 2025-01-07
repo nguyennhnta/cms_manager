@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         this.user = user;
         if (user && typeof user === 'object') {
-          useCookie('user').value = JSON.stringify(user); // Lưu vào cookie dưới dạng chuỗi JSON
+          useCookie('user').value = JSON.stringify(user);
         }
       } catch (error) {
         console.error('Lỗi khi lưu user vào cookie:', error);
@@ -39,8 +39,8 @@ export const useAuthStore = defineStore('auth', {
         email: '',
         avatar: ''
       };
-      useCookie('token').value = null; // Xóa token cookie
-      useCookie('user').value = null; // Xóa user cookie
+      useCookie('token').value = null;
+      useCookie('user').value = null;
     },
     setMessage( message : string){
       this.message = this.message;
@@ -48,7 +48,7 @@ export const useAuthStore = defineStore('auth', {
 
     loadFromCookies() {
       const token = useCookie('token').value;
-      const user: any = useCookie('user').value; // Change here
+      const user: any = useCookie('user').value;
       if (token) {
         this.token = token;
         this.authenticated = true;
@@ -58,7 +58,7 @@ export const useAuthStore = defineStore('auth', {
       try {
           this.user = user;
         } catch (error) {
-          console.error('Lỗi khi phân tích dữ liệu user từ cookie:', error);
+          console.error(error);
           this.user = {name: '',
             email: '',
             avatar: '',}; 
