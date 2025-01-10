@@ -38,14 +38,8 @@ class AuthController extends Controller
     }
 
     /**
-     * Login user and create token
-     *
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [boolean] remember_me
-     * @return [string] access_token
-     * @return [string] token_type
-     * @return [string] expires_at
+     * @param Request $request
+     * @return mixed
      */
     public function login(Request $request)
     {
