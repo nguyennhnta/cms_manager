@@ -471,16 +471,16 @@ onMounted(() => {
 
 const updateProduct = async () => {
   const updatedProduct = productStore.product
-  const response = await productStore.updateProduct(productId, updatedProduct)
-  console.log(response);
+  const response = await productStore.updateProduct(productId, updatedProduct);
   if (response && response.status === 200) {
     toast({
       title: 'Product Update',
-      description: `Product ${updatedProduct.name} has been added successfully.`,
+      description: `Product ${updatedProduct.name} has been updated successfully.`,
       variant: 'default',
       duration: 2000,
     });
   }
+  goBack();
 }
 const goBack = () => {
   router.back()
