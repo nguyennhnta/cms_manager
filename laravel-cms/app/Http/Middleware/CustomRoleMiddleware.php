@@ -18,13 +18,13 @@ class CustomRoleMiddleware
     {
         if (is_null($role)) {
             return response()->json([
-                'message' => 'Role không được cung cấp. Vui lòng kiểm tra lại!',
+                'message' => 'Role is not provided. Please check again!',
                 'status' => 400
             ], 400);
         }
         if (!$request->user() || !$request->user()->hasRole($role)) {
             return response()->json([
-                'message' => 'Bạn không có quyền truy cập. Vui lòng liên hệ quản trị viên!',
+                'message' => 'You do not have access permission. Please contact the administrator!',
                 'status' => 403
             ], 403);
         }
