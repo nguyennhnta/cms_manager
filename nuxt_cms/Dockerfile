@@ -13,6 +13,7 @@ RUN npm install --production
 COPY . .
 
 # Build Nuxt 3 cho production
+RUN npm install --save-dev sass-embedded
 RUN npm run build
 
 # Giai đoạn chạy production
