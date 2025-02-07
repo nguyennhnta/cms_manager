@@ -25,7 +25,7 @@ CMD ["npm", "run", "dev"]
 # CMD ["pnpm", "run", "dev"]
 
 # Stage 2: Build và phục vụ ứng dụng ở chế độ production
-FROM node:16 AS build
+FROM node:20 AS build
 
 WORKDIR /app
 
