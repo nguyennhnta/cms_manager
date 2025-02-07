@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Cài đặt dependencies (chỉ cho production)
-RUN npm install --production
+RUN npm install --omit=dev
 
 # Copy toàn bộ source code vào container
 COPY . .
@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # Expose cổng 80 cho Nuxt
-EXPOSE 80
+EXPOSE 3000
 
 # Chạy Nuxt ở chế độ production
 CMD ["node", ".output/server/index.mjs"]
