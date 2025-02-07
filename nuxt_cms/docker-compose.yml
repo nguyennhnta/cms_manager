@@ -1,19 +1,21 @@
+version: '3.8'
+
 services:
   nuxt_cms_app:
-      build:
-          context: ./
-          dockerfile: Dockerfile
-          target: production 
-      container_name: nuxt_cms_app
-      ports:
-        - "3000:3000"  # Nuxt chạy ở cổng 3000
-      volumes:
-          - ../nuxt_cms:/app 
-          - /app/node_modules
-      environment:
-          VUE_APP_API_URL: http://localhost/api
-      networks:
-          - laravel_cms
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: production 
+    container_name: nuxt_cms_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+    environment:
+      VUE_APP_API_URL: http://localhost/api
+    networks:
+      - laravel_cms
 
 networks:
   laravel_cms:
