@@ -6,12 +6,12 @@ services:
           target: development 
       container_name: nuxt_cms_app
       ports:
-        - "8081:8081"  
+        - "3000:3000"  # Nuxt chạy ở cổng 3000
       volumes:
           - ../nuxt_cms:/app 
           - /app/node_modules
       environment:
-          VUE_APP_API_URL: http://localhost:8081/api
+          VUE_APP_API_URL: http://localhost/api
       networks:
           - laravel_cms
 
