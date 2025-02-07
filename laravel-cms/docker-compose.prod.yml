@@ -1,61 +1,51 @@
-version: "3.7"
 services:
   app:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: ai_chat
-    container_name: ai_chat-app
-    restart: unless-stopped
+    #        platform: linux/amd64
+    image: laravel_cms
+    container_name: laravel_cms_app
+    restart: always
     working_dir: /var/www/
     volumes:
       - ./:/var/www
     networks:
-      - ai_chat
+      - laravel_cms
 
   db:
     image: mysql:8.0
-    container_name: ai_chat-db
-    restart: unless-stopped
+    container_name: laravel_cms_db
+    restart: always
     ports:
       - ${MYSQL_PORT_EXTRA:-3306}:3306
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_MYSQL_USER}
+      MYSQL_PASSWORD: ${DB_MYSQL_PASSWORD}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max_connections=2213 --group_concat_max_len=1000000
     volumes:
+      - mysql_data:/var/lib/mysql
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     networks:
-      - ai_chat
+      - laravel_cms
 
   nginx:
     image: nginx:alpine
-    container_name: ai_chat-nginx
-    restart: unless-stopped
+    container_name: laravel_cms_nginx
+    restart: always
     ports:
       - ${NGINX_PORT_EXTRA:-8080}:80
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
-      - ai_chat
-  vue-app:
-    build:
-      context: ../vue-project
-      dockerfile: Dockerfile
-      target: production
-    container_name: vue-app-prod
-    ports:
-      - "8081:8081"
-    environment:
-      VUE_APP_API_URL: http://localhost:8080/api
-    networks:
-      - ai_chat
-
+      - laravel_cms
+volumes:
+  mysql_data:
 networks:
-  ai_chat:
+  laravel_cms:
     driver: bridge
