@@ -32,7 +32,7 @@ export const useAuthActions = () => {
   const registerUser = async ({ firstName, lastName, email, password }: RegisterUser) => {
     const fullName = `${firstName} ${lastName}`;
     try {
-      const { data } = await useFetch<RegisterResponse>('http://localhost/api/register', {
+      const { data } = await useFetch<RegisterResponse>('http://13.213.53.146/api/register', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: { name: fullName, email, password },
@@ -51,7 +51,7 @@ export const useAuthActions = () => {
   };
 
   const authenticateUser = async ({ email, password } : User) => {
-    const { data } = await useFetch<LoginResponse>('http://localhost/api/login', {
+    const { data } = await useFetch<LoginResponse>('http://13.213.53.146/api/login', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: { email, password },
@@ -68,7 +68,7 @@ export const useAuthActions = () => {
 
   const authenticateUserGoogle = async () => {
     try {
-        const { data } = await useFetch<GoogleUrl>('http://localhost/api/auth/google');
+        const { data } = await useFetch<GoogleUrl>('http://13.213.53.146/api/auth/google');
         if (data.value && data.value.url) {
           window.location.href = data.value.url;
 
