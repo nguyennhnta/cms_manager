@@ -12,6 +12,7 @@ RUN npm install --omit=dev
 COPY . .
 
 # Build ứng dụng
+RUN npm install --save-dev sass-embedded
 RUN npm run build
 
 # Expose cổng 80 cho Nuxt
