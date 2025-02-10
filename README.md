@@ -54,7 +54,6 @@ app:
 build:
 context: ./
 dockerfile: Dockerfile
-#        platform: linux/amd64
         image: laravel_cms
         container_name: laravel_cms_app
         restart: unless-stopped
