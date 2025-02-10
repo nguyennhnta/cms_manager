@@ -1,50 +1,33 @@
-# Stage 1: Cài đặt dependencies và chạy ở chế độ phát triển
-FROM node:20 AS development
-
-
-# Cài đặt pnpm
-# RUN npm install
-# RUN npm install -g pnpm
+# Dùng Node 18 (tương thích tốt hơn)
+FROM node:20 AS builder
 
 WORKDIR /app
 
-# COPY package.json pnpm-lock.yaml ./
+# Copy package.json và package-lock.json trước để tối ưu cache
 COPY package.json package-lock.json ./
 
-RUN npm install
-# RUN pnpm install
+# Cài đặt dependencies (chỉ cần cho production)
+RUN npm install --production
 
-
+# Copy toàn bộ mã nguồn
 COPY . .
 
-# Expose port 5173 for Vite in development mode
-EXPOSE 8080
+# Build Nuxt 3 cho production
+RUN npm install --save-dev sass-embedded
+RUN npm run build
 
-# Chế độ phát triển: chạy Dev Server với hot-reload
-CMD ["npm", "run", "dev"]
-# CMD ["pnpm", "run", "dev"]
-
-# Stage 2: Build và phục vụ ứng dụng ở chế độ production
-FROM node:20 AS build
+# Giai đoạn chạy production
+FROM node:20 AS production
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
-COPY . .
+# Copy file build từ builder
+COPY --from=builder /app/.output .output
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
 
-# Build ứng dụng cho production
-RUN npm run build
+# Expose cổng 3000
+EXPOSE 3000
 
-# Stage 3: Chạy ứng dụng Vue đã build qua Nginx
-FROM nginx:alpine AS production
-
-# Copy các file đã build vào Nginx để phục vụ trên web server
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose port 80 cho Nginx
-EXPOSE 80
-
-# Chạy Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Chạy Nuxt ở chế độ production
+CMD ["node", ".output/server/index.mjs"]

@@ -8,6 +8,7 @@ B7. php artisan migrate:refresh --seed
 php artisan passport:client --personal
 B8. php artisan cache:clear
 B9. php artisan view:clear
+php artisan make:seeder RoleAndPermissionSeeder
 
 rebuild docker image :docker-compose up -d --build --force-recreate
 docker-compose build --no-cache
@@ -23,7 +24,7 @@ php artisan install:api --passport
 sudo chmod -R 777 storage/
 
 php artisan passport:keys --force
-php artisan make:seeder RoleAndPermissionSeeder
+
 
 
 

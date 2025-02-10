@@ -123,7 +123,7 @@ class AuthController extends Controller
 
             $token = $user->createToken('Personal Access Token')->accessToken;
 
-            return redirect('http://localhost:8081/auth/google/callback/?token='.$token.'&user_id='.$user->id);
+            return redirect('http://13.213.53.146:3000/auth/google/callback/?token='.$token.'&user_id='.$user->id);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unable to login'], 500);
         }
