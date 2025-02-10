@@ -1,4 +1,4 @@
-# Hướng Dẫn Cài Đặt Laravel CMS (Laravel 11 + Nuxt 3) Trên EC2
+# Hướng Dẫn Cài Đặt Laravel CMS (Laravel 11 + Nuxt 3) Trên EC2 ubuntu
 
 ## 1. Tạo EC2 Instance
 - **Loại máy**: t3.medium (20GB ổ đĩa)
@@ -6,7 +6,7 @@
 - **Hệ điều hành**: Ubuntu 22.04 hoặc 20.04.
 - **Mở cổng trong Security Group:**
     - `80, 443`: Cho Nginx reverse proxy.
-    - `3000`: Nếu muốn truy cập trực tiếp vào Nuxt.
+    - `3000`: Dùng cho Nuxt.
     - `22`: SSH.
 
 ---
@@ -30,7 +30,6 @@ docker ps
 ```bash
 git clone https://github.com/nguyennhnta/cms_manager.git
 cd cms_manager
-git checkout feature/aws
 ```
 - **Laravel API**: `laravel_cms`
 - **Nuxt Frontend**: `nuxt_cms`
