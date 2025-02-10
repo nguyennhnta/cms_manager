@@ -25,10 +25,11 @@ Source api là laravel_cms , source nuxt là nuxt_cms , có 2 source cần build
 
 I. Cài đặt souce laravel api:  
 
-———  File config nginx ———    
-server {
-listen 80;
-server_name localhost;
+———  File config nginx ———
+
+    server {
+    listen 80;
+    server_name localhost;
 
     root /var/www/public/;
     index index.php index.html index.htm;
@@ -49,20 +50,21 @@ server_name localhost;
     }
 }
 
-——— Docker composer  ————  
-services:
-app:
-build:
-context: ./
-dockerfile: Dockerfile
-        image: laravel_cms
-        container_name: laravel_cms_app
-        restart: unless-stopped
-        working_dir: /var/www/
-        volumes:
-            - ./:/var/www
-        networks:
-            - laravel_cms
+——— Docker composer  ————
+
+    services:
+    app:
+    build:
+    context: ./
+    dockerfile: Dockerfile
+            image: laravel_cms
+            container_name: laravel_cms_app
+            restart: unless-stopped
+            working_dir: /var/www/
+            volumes:
+                - ./:/var/www
+            networks:
+                - laravel_cms
 
     db:
         image: mysql:8.0
