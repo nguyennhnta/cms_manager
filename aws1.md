@@ -1,4 +1,4 @@
-# Cài đặt Laravel với MySQL trên EC2 không dùng RDS
+# Cài đặt Laravel với MySQL trên EC2 không dùng RDS (tham khảo thêm nếu muốn tự build một laravel source đơn giản)
 
 ## 1. Cài đặt Nginx Server
 ```bash
