@@ -156,12 +156,12 @@ B15. Exit -> sudo chmod -R 777 storage/
 
 ———————  
 Sau khi chạy các lệnh trên test lại trên browser   
-http://13.214.183.18 hoặc trên postman http://13.214.183.18/api/register với method post   
-body {
-email : nguyennhdn@gmail.com
-password: admin12345
-name : hoang nguyen2121
-}
+http://13.214.183.18 hoặc trên postman http://13.214.183.18/api/register với method post  
+body {  
+email : nguyennhdn@gmail.com  
+password: admin12345  
+name : hoang nguyen2121  
+}  
 
 ——————
 Tham khảo thêm các lệnh:  
