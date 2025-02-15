@@ -51,7 +51,7 @@ export const useAuthActions = () => {
   };
 
   const authenticateUser = async ({ email, password } : User) => {
-    const { data } = await useFetch<LoginResponse>('http://154.251.10.44/api/login', {
+    const { data } = await useFetch<LoginResponse>('http://54.251.10.44/api/login', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: { email, password },
