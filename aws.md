@@ -197,3 +197,10 @@ docker system prune -a --volumes -f
 
 *Hướng dẫn này giúp bạn cài đặt Laravel CMS (Laravel 11 + Nuxt 3) trên EC2 một cách nhanh chóng và tối ưu.* 🚀
 
+sudo nginx -t
+ubuntu@ip-172-31-39-113:~$ sudo nano /etc/nginx/sites-available/reverse-proxy.conf
+ubuntu@ip-172-31-39-113:~$ sudo systemctl restart nginx
+ubuntu@ip-172-31-39-113:~$ sudo systemctl status nginx
+ubuntu@ip-172-31-39-113:~$ sudo nano /etc/nginx/sites-available/reverse-proxy.conf
+
+
