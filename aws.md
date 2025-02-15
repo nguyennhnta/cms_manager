@@ -131,6 +131,7 @@ composer install
 php artisan key:generate
 php artisan migrate:refresh --seed
 php artisan passport:install
+php artisan passport:client --personal
 php artisan config:cache
 php artisan cache:clear
 php artisan view:clear
