@@ -38,7 +38,7 @@ cd cms_manager
 #### Cấu hình Nginx (`docker-compose/nginx/laravel_cms.conf`)
 ```nginx
 server {
-    listen 80;
+    listen 80; #port của container docker
     server_name localhost;
     root /var/www/public/;
     index index.php index.html index.htm;
