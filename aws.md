@@ -197,10 +197,46 @@ docker system prune -a --volumes -f
 
 *Hướng dẫn này giúp bạn cài đặt Laravel CMS (Laravel 11 + Nuxt 3) trên EC2 một cách nhanh chóng và tối ưu.* 🚀
 
+
+
+
+Để cấu hình reverse proxy trên EC2 Ubuntu cho hai source Laravel API và Nuxt 3, bạn có thể sử dụng Nginx làm reverse proxy. Dưới đây là hướng dẫn chi tiết từng bước:
+Bước 1: Cài đặt Nginx
+sudo apt update
+sudo apt install nginx -y
+
+Bước 2: Cấu hình Reverse Proxy cho Laravel API và Nuxt 3
+sudo nano /etc/nginx/sites-available/reverse-proxy.conf
+Thêm nội dung sau:
+server {
+listen 80;
+server_name 54.251.10.44;  # Sử dụng IP để xác định server
+
+    # Laravel API trên root path
+    location /api {
+        proxy_pass http://54.251.10.44:8081;  # Laravel API chạy trên port 80
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Nuxt 3 trên đường dẫn /nuxt
+    location / {
+        proxy_pass http://54.251.10.44:3000;  # Nuxt 3 chạy trên port 3000
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+Bước 3: Kích hoạt cấu hình Nginx
+sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/
+- Kiểm tra lỗi cấu hình Nginx:
 sudo nginx -t
-ubuntu@ip-172-31-39-113:~$ sudo nano /etc/nginx/sites-available/reverse-proxy.conf
-ubuntu@ip-172-31-39-113:~$ sudo systemctl restart nginx
-ubuntu@ip-172-31-39-113:~$ sudo systemctl status nginx
-ubuntu@ip-172-31-39-113:~$ sudo nano /etc/nginx/sites-available/reverse-proxy.conf
+- Nếu không có lỗi, khởi động lại Nginx:
+sudo systemctl restart nginx
+sudo systemctl status nginx
+
 
 
