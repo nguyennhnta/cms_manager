@@ -127,6 +127,8 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-cms/vendor/symfony/routing" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-cms/vendor/symfony/yaml" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-cms/vendor/symfony/string" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-cms/vendor/laravel/socialite" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-cms/vendor/league/oauth1-client" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -93,7 +93,7 @@ services:
     container_name: laravel_cms_nginx
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8081:80"
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
@@ -140,8 +140,8 @@ sudo chmod -R 777 storage/
 ```
 
 *Test API trên Postman hoặc trình duyệt:*
-- **Trình duyệt**: `http://your-ip.com`
-- **Postman**: `http://your-ip.com/api/register` (POST)
+- **Trình duyệt**: `http://your-ip.com:8081`
+- **Postman**: `http://your-ip.com:8081/api/register` (POST)
 ```json
 {
     "email": "nguyennhdn@gmail.com",

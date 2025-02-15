@@ -26,3 +26,7 @@ Route::middleware('auth:api')->get('/auth/check-token', function () {
 //});
 Route::get('auth/google', [AuthController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+
+Route::get('/api', function () {
+    return response()->json(['message' => 'Laravel API endpoint /api working!']);
+});
