@@ -153,6 +153,10 @@ sudo chmod -R 777 storage/
 ---
 
 ## 6. Cài Đặt Nuxt CMS
+thay đổi địa chỉ IP ở các file tương ứng trong nuxt
+1. nuxt.config.ts
+2. authentication.ts
+3. docker-compose.yml
 ```bash
 docker-compose down -v
 docker-compose build --no-cache
