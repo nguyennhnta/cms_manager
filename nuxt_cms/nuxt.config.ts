@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiUrl: process.env.VITE_API_URL || 'http://54.251.10.44/api',
+      apiUrl: process.env.VITE_API_URL || 'http://54.251.10.44:8081/api',
     },
   },
   ssr: false,

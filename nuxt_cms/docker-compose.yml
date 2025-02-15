@@ -13,7 +13,7 @@ services:
     volumes:
       - /app/node_modules
     environment:
-      VUE_APP_API_URL: http://54.251.10.44/api
+      VUE_APP_API_URL: http://54.251.10.44:8081/api
     networks:
       - laravel_cms
 
