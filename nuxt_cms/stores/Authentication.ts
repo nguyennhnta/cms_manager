@@ -69,7 +69,7 @@ export const useAuthActions = () => {
 
   const authenticateUserGoogle = async () => {
     try {
-        const { data } = await useFetch<GoogleUrl>('http://localhost:8080/api/auth/google');
+        const { data } = await useFetch<GoogleUrl>(`${runtimeConfig.public.apiUrl}/auth/google`);
         if (data.value && data.value.url) {
           window.location.href = data.value.url;
 
