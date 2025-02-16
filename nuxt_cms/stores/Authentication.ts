@@ -28,11 +28,12 @@ interface RegisterResponse{
 export const useAuthActions = () => {
   const authStore = useAuthStore();
   const userStore = useUserStore();
+  const runtimeConfig = useRuntimeConfig(); 
 
   const registerUser = async ({ firstName, lastName, email, password }: RegisterUser) => {
     const fullName = `${firstName} ${lastName}`;
     try {
-      const { data } = await useFetch<RegisterResponse>('http://localhost:8080/api/register', {
+      const { data } = await useFetch<RegisterResponse>(`${runtimeConfig.public.apiUrl}/register`, {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: { name: fullName, email, password },
@@ -51,7 +52,7 @@ export const useAuthActions = () => {
   };
 
   const authenticateUser = async ({ email, password } : User) => {
-    const { data } = await useFetch<LoginResponse>('http://localhost:8080/api/login', {
+    const { data } = await useFetch<LoginResponse>(`${runtimeConfig.public.apiUrl}/login`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: { email, password },

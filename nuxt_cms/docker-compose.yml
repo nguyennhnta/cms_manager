@@ -6,12 +6,12 @@ services:
           target: development 
       container_name: nuxt_cms_app
       ports:
-        - "8081:8081"  
+        - "8081:8081"
       volumes:
           - ../nuxt_cms:/app 
           - /app/node_modules
       environment:
-          VUE_APP_API_URL: http://localhost:8081/api
+          VUE_APP_API_URL: ${VITE_API_URL}
       networks:
           - laravel_cms
 
