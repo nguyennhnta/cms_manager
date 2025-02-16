@@ -28,11 +28,12 @@ interface RegisterResponse{
 export const useAuthActions = () => {
   const authStore = useAuthStore();
   const userStore = useUserStore();
+  const runtimeConfig = useRuntimeConfig(); // Lấy config từ Nuxt
 
   const registerUser = async ({ firstName, lastName, email, password }: RegisterUser) => {
     const fullName = `${firstName} ${lastName}`;
     try {
-      const { data } = await useFetch<RegisterResponse>('http://54.251.10.44:8081/api/register', {
+      const { data } = await useFetch<RegisterResponse>(`${runtimeConfig.public.apiUrl}/register`, {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: { name: fullName, email, password },
@@ -51,7 +52,7 @@ export const useAuthActions = () => {
   };
 
   const authenticateUser = async ({ email, password } : User) => {
-    const { data } = await useFetch<LoginResponse>('http://54.251.10.44:8081/api/login', {
+    const { data } = await useFetch<LoginResponse>(`${runtimeConfig.public.apiUrl}/login`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: { email, password },
@@ -68,7 +69,7 @@ export const useAuthActions = () => {
 
   const authenticateUserGoogle = async () => {
     try {
-        const { data } = await useFetch<GoogleUrl>('http://54.251.10.44:8081/api/auth/google');
+        const { data } = await useFetch<GoogleUrl>(`${runtimeConfig.public.apiUrl}/auth/google`);
         if (data.value && data.value.url) {
           window.location.href = data.value.url;
 
