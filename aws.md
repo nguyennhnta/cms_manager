@@ -158,6 +158,7 @@ thay đổi địa chỉ IP ở các file tương ứng trong nuxt
 2. authentication.ts
 3. docker-compose.yml
 ```bash
+cp .env.production .env
 docker-compose down -v
 docker-compose build --no-cache
 docker-compose up -d
