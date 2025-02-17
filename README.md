@@ -16,7 +16,7 @@ State Management: Pinia
 
 CDN: Shard CDN
 
-Database: MySQL / PostgreSQL
+Database: MySQL
 
 Containerization: Docker
 
@@ -30,10 +30,10 @@ Node.js >= 20
 
 Composer
 
-MySQL / PostgreSQL
+MySQL
 
-Docker (nếu sử dụng containerized environment)
+Docker (containerized environment)
 
 2️⃣ Clone Dự Án
 
-git clone https://github.com/your-repo/cms-management.git
+git clone https://github.com/nguyennhnta/cms_manager.git
