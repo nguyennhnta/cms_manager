@@ -31,7 +31,7 @@ class AuthController extends Controller
         $token = $user->createToken('LaravelAuthApp')->accessToken;
 
         return response()->json([
-            'message' => 'Product deleted successfully',
+            'message' => 'Register successfully',
             'token' => $token,
         ], 200);
 
